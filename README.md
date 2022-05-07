@@ -4,9 +4,9 @@
 <link rel=lazy id=package-name/theme.css as=script crossorigin=anonymous integrity=... fetchpriority=1 be-preemptive=css href=https://some-cdn.com/package-name@1.2.3>
 ```
 
-## First use case (short lived) -- preemptive use of CSS Modules
+## First use case (short-lived, hopefully) -- preemptive use of CSS Modules
 
-Browser vendors and CDN's are taking their sweet time in providing support for CSS Modules.  In the meantime, we can use this web component decorator / behavior to avoid that issue:
+Browser vendors and CDN's are taking their sweet time in providing support for CSS Modules.  In the meantime, we can use this web component decorator / behavior to avoid that obstacle:
 
 
 
@@ -21,7 +21,7 @@ The value of rel can also be preload, which is really useful for non-lazy loaded
 
 ## Second use case (medium term, at most, hopefully?) -- passionately, but not aggressively, get needed resources ahead of time.
 
-Beyond this short lived usage, this will also preemptively perform a css module import, but after waiting for the document to finish parsing (at a minimum), so as not to slow anything else down.  
+Beyond this short lived usage, this will also preemptively perform a css module import, but (since the value of rel is lazy), after waiting for the document to finish parsing (at a minimum), so as not to slow anything else down.  
 
 However, calling the api above will start the download regardless.
 
