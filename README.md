@@ -1,7 +1,7 @@
 # be-preemptive [TODO]
 
 ```html
-<link rel=lazy id=package-name/theme.css as=script crossorigin=anonymous integrity=... fetchpriority=1 be-preemptive=css href=https://some-cdn.com/package-name@1.2.3>
+<link rel=lazy id=package-name/theme.css as=script crossorigin=anonymous integrity=... fetchpriority=low be-preemptive=css href=https://some-cdn.com/package-name@1.2.3>
 ```
 
 ## First use case (short-lived, hopefully) -- preemptive use of CSS Modules
