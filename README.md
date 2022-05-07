@@ -12,7 +12,7 @@ Browser vendors and CDN's are taking their sweet time in providing support for C
 
 ```JavaScript
 await customElements.whenDefined('be-preemptive');
-const linkOrStylesheet = await self['package-name/theme.css'].beDecorated.preemptive.stylesheetPromise();
+const linkOrStylesheet = await self['package-name/theme.css'].beDecorated.preemptive.linkOrStylesheetPromise();
 ```
 
 In the case of Chromium based browsers, you will be provided a Stylesheet, which can be adopted as needed.  If not, you will probably want to append the returned link into your ShadowDOM root.
