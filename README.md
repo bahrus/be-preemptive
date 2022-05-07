@@ -29,7 +29,7 @@ This is meant for use cases where a web component lazy loads.  Having the css pr
 
 The browser probably has a good reason for complaining about abusing link rel=preload, so this provides a way to achieve that goal, hopefully in a responsible way.
 
-## Specify not doing anything preemptive based on https://wicg.github.io/netinfo/#connection-attribute
+## Specify not doing anything preemptively based on the user agent's [network connectivity](https://wicg.github.io/netinfo/#connection-attribute)
 
-The moment anyone calls the api above, the download will begin regardless of any hesitation parameters specified.
+But remember, the moment anyone calls the api above, the download will begin regardless of any hesitation parameters specified.
 
