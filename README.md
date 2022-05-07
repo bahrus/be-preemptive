@@ -1,5 +1,5 @@
 # be-preemptive
 
 ```html
-<link as=script  be-preemptive=css href=...>
+<link as=script fetchpriority=1 be-preemptive=css href=...>
 ```
