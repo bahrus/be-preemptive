@@ -27,7 +27,7 @@ Beyond this short lived usage, this will also preemptively perform a css module 
 
 However, calling the api above will start the download regardless.
 
-This is meant for use cases where a web component lazy loads.  Having the css preload ahead of time is quite helpful, especially if streaming is used to stream in the HTML needed for the web component, w3c willing.  This would allow the browser to render the web component progressively without suffering from FOUC.
+This is meant for use cases where a web component lazy loads.  Having the css pre download ahead of time is quite helpful, especially if streaming is used to stream in the HTML needed for the web component, w3c willing.  This would allow the browser to render the web component progressively without suffering from FOUC.
 
 The browser probably has a good reason for complaining about abusing link rel=preload, so this provides a way to achieve that goal, hopefully in a responsible way.
 
