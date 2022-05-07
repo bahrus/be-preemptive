@@ -19,11 +19,17 @@ In the case of Chromium based browsers, you will be provided a Stylesheet, which
 
 The value of rel can also be preload, which is really useful for non-lazy loaded web components. Or anything you want, really.
 
-## Second use case (medium term, at most, hopefully?) -- passionately, but not aggressively, getting needed resources ahead of time.
+## Second use case (medium term, at most, hopefully?) -- passionately, but not aggressively, get needed resources ahead of time.
 
-Beyond this short lived usage, this will also preemptively perform a css module import, but after waiting for the document to finish parsing (at a minimum), so as not to slow anything else down.  This is meant for use cases where a web component lazy loads.  Having the css preload ahead of time is quite helpful, especially if streaming is used to stream in the HTML needed for the web component, w3c willing.  This would allow the browser to render the web component progressively without suffering from FOUC.
+Beyond this short lived usage, this will also preemptively perform a css module import, but after waiting for the document to finish parsing (at a minimum), so as not to slow anything else down.  
+
+However, calling the api above will start the download regardless.
+
+This is meant for use cases where a web component lazy loads.  Having the css preload ahead of time is quite helpful, especially if streaming is used to stream in the HTML needed for the web component, w3c willing.  This would allow the browser to render the web component progressively without suffering from FOUC.
 
 The browser probably has a good reason for complaining about abusing link rel=preload, so this provides a way to achieve that goal, hopefully in a responsible way.
 
 ## Specify not doing anything preemptive based on https://wicg.github.io/netinfo/#connection-attribute
+
+The moment anyone calls the api above, the download will begin regardless of any hesitation parameters specified.
 
