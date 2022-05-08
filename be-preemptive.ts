@@ -5,9 +5,8 @@ import {BePreemptiveActions, BePreemptiveProps, BePreemptiveVirtualProps} from '
 
 export class BePreemptive implements BePreemptiveActions{
 
-    #mutationObserver: MutationObserver | undefined;
     intro(proxy: Element & BePreemptiveVirtualProps, target: Element, beDecor: BeDecoratedProps){
-       
+        linkOrStylesheetPromise
 
     }
 
@@ -38,7 +37,7 @@ function introduceToPreemptive(newTarget: HTMLLinkElement){
     (document.querySelector('be-preemptive') as any as BeDecoratedProps).newTarget = newTarget;
 
 }
-const test = 'link[be-preemptive],link[data-be-preemptive';
+const test = 'link[be-preemptive],link[data-be-preemptive]';
 const headObserver = new MutationObserver((mutationList: MutationRecord[], observer: MutationObserver) => {
     for (const mutation of mutationList) {
         const addedNodes = Array.from(mutation.addedNodes);

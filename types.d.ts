@@ -1,7 +1,7 @@
 import {BeDecoratedProps} from 'be-decorated/types';
 
 export interface BePreemptiveVirtualProps{
-
+    linkOrStylesheetPromise: Promise<HTMLLinkElement | StylesheetImport>;
 }
 
 export interface BePreemptiveProps extends BePreemptiveVirtualProps{
