@@ -9,5 +9,5 @@ export interface BePreemptiveProps extends BePreemptiveVirtualProps{
 }
 
 export interface BePreemptiveActions{
-    
+    intro(proxy: Element & BePreemptiveVirtualProps, target: Element, beDecor: BeDecoratedProps): void;
 }
