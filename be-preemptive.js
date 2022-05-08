@@ -14,6 +14,20 @@ export class BePreemptive {
                 });
             });
         });
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', e => {
+                proxy.domLoaded = true;
+            }, { once: true });
+            return;
+        }
+        proxy.domLoaded = true;
+    }
+    onDOMLoaded({ proxy, linkOrStylesheetPromise }) {
+        requestIdleCallback(() => {
+            proxy.linkOrStylesheetPromise.then(resource => {
+                proxy.invoked = true;
+            });
+        });
     }
 }
 const tagName = 'be-preemptive';
@@ -26,7 +40,7 @@ define({
             upgrade,
             ifWantsToBe,
             forceVisible: ['link'],
-            virtualProps: ['linkOrStylesheetPromise'],
+            virtualProps: ['linkOrStylesheetPromise', 'resource', 'domLoaded', 'invoked'],
         }
     }
 });

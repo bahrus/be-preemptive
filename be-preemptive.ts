@@ -18,6 +18,22 @@ export class BePreemptive implements BePreemptiveActions{
                 });
             });
         });
+        if(document.readyState === 'loading'){
+            document.addEventListener('DOMContentLoaded', e => {
+                proxy.domLoaded = true;
+            }, {once: true});
+            return;
+        }
+        proxy.domLoaded = true;
+    }
+
+    onDOMLoaded({proxy, linkOrStylesheetPromise}: this){
+        requestIdleCallback(() => {
+            proxy.linkOrStylesheetPromise.then(resource => {
+                proxy.invoked = true;
+            });
+        })
+
     }
 
 }
@@ -37,7 +53,7 @@ define<BePreemptiveProps & BeDecoratedProps<BePreemptiveProps, BePreemptiveActio
             upgrade,
             ifWantsToBe,
             forceVisible: ['link'],
-            virtualProps: ['linkOrStylesheetPromise'],
+            virtualProps: ['linkOrStylesheetPromise', 'resource', 'domLoaded', 'invoked'],
         }
     }
 });

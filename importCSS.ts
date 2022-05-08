@@ -9,7 +9,7 @@ try{
     console.warn(e);
 }
 
-export async function importCSS(url: string) {
+export async function importCSS(url: string) : Promise<StylesheetImport | HTMLLinkElement> {
     try{
         return  await doImport(url);
     }catch(e){

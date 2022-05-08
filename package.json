@@ -8,8 +8,7 @@
   },
   "dependencies": {
     "be-decorated": "0.0.113",
-    "be-hive": "0.0.45",
-    "be-loaded": "0.0.58"
+    "be-hive": "0.0.45"  
   },
   "repository": {
     "type": "git",
