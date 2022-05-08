@@ -30,7 +30,7 @@ However, calling the api above will start the download regardless.
 
 This is meant for use cases where a web component lazy loads.  Having css kept separate allows for multiple components to share the same css, and also web components can enable having the web component consumer design their own css without incurring any penalty from the default css if the developer chooses to forgo it.
 
-Having the css pre download ahead of time in this scenario is quite helpful, especially if streaming is used to stream in the HTML needed for the web component, w3c willing.  This would allow the browser to render the web component progressively without suffering from FOUC.
+Having the css pre download ahead of time in this scenario is quite helpful, especially if streaming is used to [stream in the HTML needed for the web component](https://www.youtube.com/watch?v=3sMflOp5kiQ), w3c willing.  This would allow the browser to render the web component progressively without suffering from FOUC.
 
 The browser probably has a good reason for complaining about abusing link rel=preload, so this provides a way to achieve that goal, hopefully in a responsible way.
 
