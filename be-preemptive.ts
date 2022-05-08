@@ -33,7 +33,7 @@ export class BePreemptive implements BePreemptiveActions{
             proxy.linkOrStylesheetPromise.then(resource => {
                 proxy.invoked = true;
             });
-        })
+        });
 
     }
 
