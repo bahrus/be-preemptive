@@ -12,7 +12,7 @@ export interface BePreemptiveProps extends BePreemptiveVirtualProps{
 }
 
 export interface BePreemptiveActions{
-    intro(proxy: HTMLLinkElement & BePreemptiveVirtualProps, target: Element, beDecor: BeDecoratedProps): void;
+    intro(proxy: HTMLLinkElement & BePreemptiveVirtualProps, target: HTMLLinkElement, beDecor: BeDecoratedProps): void;
     onDOMLoaded(self: this): void;
 }
 

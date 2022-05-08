@@ -5,7 +5,7 @@ import {BePreemptiveActions, BePreemptiveProps, BePreemptiveVirtualProps, Styles
 
 export class BePreemptive implements BePreemptiveActions{
 
-    intro(proxy: HTMLLinkElement & BePreemptiveVirtualProps, target: Element, beDecor: BeDecoratedProps){
+    intro(proxy: HTMLLinkElement & BePreemptiveVirtualProps, target: HTMLLinkElement, beDecor: BeDecoratedProps){
         proxy.linkOrStylesheetPromise = new Promise<HTMLLinkElement | StylesheetImport>((resolve, reject) => {
             if(proxy.resource !== undefined){
                 resolve(proxy.resource);
@@ -18,7 +18,8 @@ export class BePreemptive implements BePreemptiveActions{
                 });
             });
         });
-        if(document.readyState === 'loading'){
+        if(target.rel !== 'lazy') return;
+        if(document.readyState !== 'complete'){
             document.addEventListener('DOMContentLoaded', e => {
                 proxy.domLoaded = true;
             }, {once: true});
@@ -54,7 +55,14 @@ define<BePreemptiveProps & BeDecoratedProps<BePreemptiveProps, BePreemptiveActio
             ifWantsToBe,
             forceVisible: ['link'],
             virtualProps: ['linkOrStylesheetPromise', 'resource', 'domLoaded', 'invoked'],
+            intro: 'intro',
+        },
+        actions:{
+            onDOMLoaded: 'domLoaded',
         }
+    },
+    complexPropDefaults:{
+        controller: BePreemptive,
     }
 });
 

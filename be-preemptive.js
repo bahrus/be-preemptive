@@ -14,7 +14,9 @@ export class BePreemptive {
                 });
             });
         });
-        if (document.readyState === 'loading') {
+        if (target.rel !== 'lazy')
+            return;
+        if (document.readyState !== 'complete') {
             document.addEventListener('DOMContentLoaded', e => {
                 proxy.domLoaded = true;
             }, { once: true });
@@ -41,7 +43,14 @@ define({
             ifWantsToBe,
             forceVisible: ['link'],
             virtualProps: ['linkOrStylesheetPromise', 'resource', 'domLoaded', 'invoked'],
+            intro: 'intro',
+        },
+        actions: {
+            onDOMLoaded: 'domLoaded',
         }
+    },
+    complexPropDefaults: {
+        controller: BePreemptive,
     }
 });
 register(ifWantsToBe, upgrade, tagName);
