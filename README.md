@@ -22,7 +22,7 @@ In the case of Chromium based browsers, you will be provided a Stylesheet, which
 
 The value of rel can also be preload, which is really useful for non-lazy loaded web components. Or anything you want, really.
 
-## Second use case (medium term, at most, hopefully?) -- passionately, but not aggressively, get needed resources ahead of time.
+## Second use case (medium term, at most, hopefully?) -- passionately, but not aggressively, get needed resources ahead of time, without being chastised.
 
 Beyond this short lived usage, be-preemptive will also preemptively perform a css module import, but (since the value of rel is lazy), after waiting for the document to finish parsing (at a minimum), so as not to slow anything else down.  
 
