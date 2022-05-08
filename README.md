@@ -42,6 +42,8 @@ But remember, the moment anyone calls the api above, the download will begin reg
 
 ## Use of fetchpriority [TODO]
 
+## Support for media queries [TODO]
+
 ## Resource Types supported
 
 1.  CSS
