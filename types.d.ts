@@ -2,6 +2,7 @@ import {BeDecoratedProps} from 'be-decorated/types';
 
 export interface BePreemptiveVirtualProps{
     linkOrStylesheetPromise: Promise<HTMLLinkElement | StylesheetImport>;
+    resource: HTMLLinkElement | StylesheetImport | undefined;
 }
 
 export interface BePreemptiveProps extends BePreemptiveVirtualProps{
@@ -9,5 +10,9 @@ export interface BePreemptiveProps extends BePreemptiveVirtualProps{
 }
 
 export interface BePreemptiveActions{
-    intro(proxy: Element & BePreemptiveVirtualProps, target: Element, beDecor: BeDecoratedProps): void;
+    intro(proxy: HTMLLinkElement & BePreemptiveVirtualProps, target: Element, beDecor: BeDecoratedProps): void;
+}
+
+export interface StylesheetImport{
+    default: StyleSheet;
 }

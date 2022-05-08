@@ -1,13 +1,23 @@
 import {define, BeDecoratedProps} from 'be-decorated/be-decorated.js';
 import {register} from "be-hive/register.js";
-import {BePreemptiveActions, BePreemptiveProps, BePreemptiveVirtualProps} from './types';
+import {BePreemptiveActions, BePreemptiveProps, BePreemptiveVirtualProps, StylesheetImport} from './types';
 
 
 export class BePreemptive implements BePreemptiveActions{
 
-    intro(proxy: Element & BePreemptiveVirtualProps, target: Element, beDecor: BeDecoratedProps){
-        linkOrStylesheetPromise
-
+    intro(proxy: HTMLLinkElement & BePreemptiveVirtualProps, target: Element, beDecor: BeDecoratedProps){
+        proxy.linkOrStylesheetPromise = new Promise<HTMLLinkElement | StylesheetImport>((resolve, reject) => {
+            if(proxy.resource !== undefined){
+                resolve(proxy.resource);
+                return;
+            }
+            import('./importCSS.js').then(({importCSS}) => {
+                const resource = importCSS(proxy.href).then((resource) => {
+                    proxy.resource = resource;
+                    resolve(resource);
+                });
+            });
+        });
     }
 
 }
@@ -27,6 +37,7 @@ define<BePreemptiveProps & BeDecoratedProps<BePreemptiveProps, BePreemptiveActio
             upgrade,
             ifWantsToBe,
             forceVisible: ['link'],
+            virtualProps: ['linkOrStylesheetPromise'],
         }
     }
 });
