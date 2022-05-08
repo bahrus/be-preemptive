@@ -1,5 +1,7 @@
 # be-preemptive
 
+*be-preemptive* loads dependent resources eagerly, but not too eagerly.
+
 ```html
 <link rel=lazy id=package-name/theme.css as=script crossorigin=anonymous integrity=... fetchpriority=low be-preemptive=css href=https://some-cdn.com/package-name@1.2.3>
 ```

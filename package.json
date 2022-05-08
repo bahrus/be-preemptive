@@ -1,11 +1,31 @@
 {
   "name": "be-preemptive",
   "version": "0.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Load dependent resources eagerly, but not too eagerly.",
+  "main": "be-preemptive.js",
+  "module": "be-preemptive.js",
+  "keywords": [
+    "web-components",
+    "web-component",
+    "custom-element",
+    "custom-elements",
+    "lazy-loading",
+    "css-modules",
+    "import-map"
+  ],
+  "exports":{
+    ".": "./be-preemptive.js",
+    "./be-preemptive.js": "./be-preemptive.js",
+    "./importCSS.js": "./importCSS.js"
+  },
+  "files": [
+    "*.*"
+  ],
+  "types": "./types.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "serve": "node node_modules/may-it-serve/serve.js"
+    "serve": "node node_modules/may-it-serve/serve.js",
+    "package-check": "package-check"
   },
   "dependencies": {
     "be-decorated": "0.0.113",
@@ -19,7 +39,7 @@
     "type": "git",
     "url": "git+https://github.com/bahrus/be-preemptive.git"
   },
-  "author": "",
+  "author": "Bruce Anderson <anderson.bruce.b@gmail.com>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/bahrus/be-preemptive/issues"
