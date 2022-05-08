@@ -2,21 +2,9 @@ import { define } from 'be-decorated/be-decorated.js';
 import { register } from "be-hive/register.js";
 export class BePreemptive {
     intro(proxy, target, beDecor) {
-        proxy.linkOrStylesheetPromise = new Promise((resolve, reject) => {
-            if (proxy.resource !== undefined) {
-                resolve(proxy.resource);
-                return;
-            }
-            import('./importCSS.js').then(({ importCSS }) => {
-                const resource = importCSS(proxy.href).then((resource) => {
-                    proxy.resource = resource;
-                    resolve(resource);
-                });
-            });
-        });
         if (target.rel !== 'lazy')
             return;
-        if (document.readyState !== 'complete') {
+        if (document.readyState === 'loading') {
             document.addEventListener('DOMContentLoaded', e => {
                 proxy.domLoaded = true;
             }, { once: true });
@@ -24,11 +12,31 @@ export class BePreemptive {
         }
         proxy.domLoaded = true;
     }
+    onAssertType({ proxy, assertType }) {
+        switch (assertType) {
+            case 'css':
+                proxy.linkOrStylesheetPromise = new Promise((resolve, reject) => {
+                    if (proxy.resource !== undefined) {
+                        resolve(proxy.resource);
+                        return;
+                    }
+                    import('./importCSS.js').then(({ importCSS }) => {
+                        const resource = importCSS(proxy.href).then((resource) => {
+                            proxy.resource = resource;
+                            resolve(resource);
+                        });
+                    });
+                });
+                break;
+        }
+    }
     onDOMLoaded({ proxy, linkOrStylesheetPromise }) {
         requestIdleCallback(() => {
-            proxy.linkOrStylesheetPromise.then(resource => {
-                proxy.invoked = true;
-            });
+            if (linkOrStylesheetPromise !== undefined) {
+                linkOrStylesheetPromise.then(resource => {
+                    proxy.invoked = true;
+                });
+            }
         });
     }
 }
@@ -42,11 +50,19 @@ define({
             upgrade,
             ifWantsToBe,
             forceVisible: ['link'],
-            virtualProps: ['linkOrStylesheetPromise', 'resource', 'domLoaded', 'invoked'],
+            virtualProps: ['linkOrStylesheetPromise', 'resource', 'domLoaded', 'invoked', 'assertType'],
             intro: 'intro',
+            primaryProp: 'assertType',
+            proxyPropDefaults: {
+                assertType: 'css',
+            }
         },
         actions: {
-            onDOMLoaded: 'domLoaded',
+            onDOMLoaded: {
+                ifAllOf: ['domLoaded'],
+                ifKeyIn: ['linkOrStylesheetPromise'],
+            },
+            onAssertType: 'assertType',
         }
     },
     complexPropDefaults: {

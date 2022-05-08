@@ -5,6 +5,7 @@ export interface BePreemptiveVirtualProps{
     resource: HTMLLinkElement | StylesheetImport | undefined;
     domLoaded: boolean;
     invoked: boolean;
+    assertType: 'css' | 'json';
 }
 
 export interface BePreemptiveProps extends BePreemptiveVirtualProps{
@@ -14,6 +15,7 @@ export interface BePreemptiveProps extends BePreemptiveVirtualProps{
 export interface BePreemptiveActions{
     intro(proxy: HTMLLinkElement & BePreemptiveVirtualProps, target: HTMLLinkElement, beDecor: BeDecoratedProps): void;
     onDOMLoaded(self: this): void;
+    onAssertType(self: this): void;
 }
 
 export interface StylesheetImport{

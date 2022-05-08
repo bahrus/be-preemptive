@@ -22,7 +22,7 @@ The value of rel can also be preload, which is really useful for non-lazy loaded
 
 ## Second use case (medium term, at most, hopefully?) -- passionately, but not aggressively, get needed resources ahead of time.
 
-Beyond this short lived usage, this will also preemptively perform a css module import, but (since the value of rel is lazy), after waiting for the document to finish parsing (at a minimum), so as not to slow anything else down.  
+Beyond this short lived usage, be-preemptive will also preemptively perform a css module import, but (since the value of rel is lazy), after waiting for the document to finish parsing (at a minimum), so as not to slow anything else down.  
 
 However, calling the api above will start the download regardless.
 
@@ -37,4 +37,12 @@ This functionality works well in combination with [be-loaded](https://github.com
 ## Specify not doing anything preemptively based on the user agent's [network connectivity](https://wicg.github.io/netinfo/#connection-attribute) [TODO]
 
 But remember, the moment anyone calls the api above, the download will begin regardless of any hesitation parameters specified.
+
+## Use of fetchpriority [TODO]
+
+## Resource Types supported
+
+1.  CSS
+2.  JSON [TODO]
+3.  XSLT [TODO]
 

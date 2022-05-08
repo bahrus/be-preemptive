@@ -6,20 +6,8 @@ import {BePreemptiveActions, BePreemptiveProps, BePreemptiveVirtualProps, Styles
 export class BePreemptive implements BePreemptiveActions{
 
     intro(proxy: HTMLLinkElement & BePreemptiveVirtualProps, target: HTMLLinkElement, beDecor: BeDecoratedProps){
-        proxy.linkOrStylesheetPromise = new Promise<HTMLLinkElement | StylesheetImport>((resolve, reject) => {
-            if(proxy.resource !== undefined){
-                resolve(proxy.resource);
-                return;
-            }
-            import('./importCSS.js').then(({importCSS}) => {
-                const resource = importCSS(proxy.href).then((resource) => {
-                    proxy.resource = resource;
-                    resolve(resource);
-                });
-            });
-        });
         if(target.rel !== 'lazy') return;
-        if(document.readyState !== 'complete'){
+        if(document.readyState === 'loading'){
             document.addEventListener('DOMContentLoaded', e => {
                 proxy.domLoaded = true;
             }, {once: true});
@@ -28,11 +16,32 @@ export class BePreemptive implements BePreemptiveActions{
         proxy.domLoaded = true;
     }
 
+    onAssertType({proxy, assertType}: this){
+        switch(assertType){
+            case 'css':
+                proxy.linkOrStylesheetPromise = new Promise<HTMLLinkElement | StylesheetImport>((resolve, reject) => {
+                    if(proxy.resource !== undefined){
+                        resolve(proxy.resource);
+                        return;
+                    }
+                    import('./importCSS.js').then(({importCSS}) => {
+                        const resource = importCSS(proxy.href).then((resource) => {
+                            proxy.resource = resource;
+                            resolve(resource);
+                        });
+                    });
+                });
+                break;
+        }
+    }
+
     onDOMLoaded({proxy, linkOrStylesheetPromise}: this){
         requestIdleCallback(() => {
-            proxy.linkOrStylesheetPromise.then(resource => {
-                proxy.invoked = true;
-            });
+            if(linkOrStylesheetPromise !== undefined){
+                linkOrStylesheetPromise.then(resource => {
+                    proxy.invoked = true;
+                });
+            }
         });
 
     }
@@ -54,11 +63,19 @@ define<BePreemptiveProps & BeDecoratedProps<BePreemptiveProps, BePreemptiveActio
             upgrade,
             ifWantsToBe,
             forceVisible: ['link'],
-            virtualProps: ['linkOrStylesheetPromise', 'resource', 'domLoaded', 'invoked'],
+            virtualProps: ['linkOrStylesheetPromise', 'resource', 'domLoaded', 'invoked', 'assertType'],
             intro: 'intro',
+            primaryProp: 'assertType',
+            proxyPropDefaults: {
+                assertType: 'css',
+            }
         },
         actions:{
-            onDOMLoaded: 'domLoaded',
+            onDOMLoaded: {
+                ifAllOf: ['domLoaded'],
+                ifKeyIn: ['linkOrStylesheetPromise'],
+            },
+            onAssertType: 'assertType',
         }
     },
     complexPropDefaults:{
