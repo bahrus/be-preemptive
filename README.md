@@ -28,7 +28,7 @@ Beyond this short lived usage, be-preemptive will also preemptively perform a cs
 
 However, calling the api above will start the download regardless.
 
-This is meant for use cases where a web component lazy loads.  Having css kept separate allows for multiple components to share the same css, and also web components can enable having the web component consumer design their own css without incurring any penalty from the default css if the developer choses to forgo it.
+This is meant for use cases where a web component lazy loads.  Having css kept separate allows for multiple components to share the same css, and also web components can enable having the web component consumer design their own css without incurring any penalty from the default css if the developer chooses to forgo it.
 
 Having the css pre download ahead of time in this scenario is quite helpful, especially if streaming is used to stream in the HTML needed for the web component, w3c willing.  This would allow the browser to render the web component progressively without suffering from FOUC.
 
