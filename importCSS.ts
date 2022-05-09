@@ -9,11 +9,16 @@ try{
     console.warn(e);
 }
 
-export async function importCSS(url: string) : Promise<StylesheetImport | HTMLLinkElement> {
+export async function importCSS(url: string, noFallback = false) : Promise<StylesheetImport | HTMLLinkElement | 'SyntaxError' | '404'> {
     try{
         return  await doImport(url);
-    }catch(e){
-        console.warn(e);
+    }catch(e: any){
+        if(noFallback){
+            if(e.message === 'doImport is not a function'){ //safari?
+                return 'SyntaxError';
+            }
+            return '404';
+        }
         const link = document.createElement('link');
         link.rel = 'stylesheet';
         link.href = url;

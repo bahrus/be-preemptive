@@ -18,7 +18,7 @@ const linkOrStylesheet = await self['package-name/theme.css'].beDecorated.preemp
 
 **NB:**  [Alternatives exist](https://github.com/guybedford/es-module-shims)
 
-In the case of Chromium based browsers, you will be provided a Stylesheet, which can be adopted as needed.  If not, you will probably want to append the returned link into your ShadowDOM root.
+In the case of Chromium-based browsers, you will be provided a Stylesheet, which can be adopted as needed.  If not, you will probably want to append the returned link into your ShadowDOM root.
 
 The value of rel can also be preload, which is really useful for non-lazy loaded web components. Or anything you want, really.
 
