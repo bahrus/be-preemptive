@@ -26,8 +26,13 @@ export class BePreemptive implements BePreemptiveActions{
                     }
                     import('./importCSS.js').then(({importCSS}) => {
                         const resource = importCSS(proxy.href).then((resource) => {
-                            proxy.resource = resource;
-                            resolve(resource);
+                            if(typeof resource === 'object'){
+                                proxy.resource = resource;
+                                resolve(resource);
+                            }else{
+                                reject(resource);
+                            }
+                            
                         });
                     });
                 });
@@ -83,10 +88,10 @@ define<BePreemptiveProps & BeDecoratedProps<BePreemptiveProps, BePreemptiveActio
     }
 });
 
-register(ifWantsToBe, upgrade, tagName);
+const tag = await register(ifWantsToBe, upgrade, tagName);
 
 function introduceToPreemptive(newTarget: HTMLLinkElement){
-    (document.querySelector('be-preemptive') as any as BeDecoratedProps).newTarget = newTarget;
+    (tag as any as BeDecoratedProps).newTarget = newTarget;
 
 }
 const test = 'link[be-preemptive],link[data-be-preemptive]';

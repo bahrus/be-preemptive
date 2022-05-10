@@ -22,8 +22,13 @@ export class BePreemptive {
                     }
                     import('./importCSS.js').then(({ importCSS }) => {
                         const resource = importCSS(proxy.href).then((resource) => {
-                            proxy.resource = resource;
-                            resolve(resource);
+                            if (typeof resource === 'object') {
+                                proxy.resource = resource;
+                                resolve(resource);
+                            }
+                            else {
+                                reject(resource);
+                            }
                         });
                     });
                 });
@@ -69,9 +74,9 @@ define({
         controller: BePreemptive,
     }
 });
-register(ifWantsToBe, upgrade, tagName);
+const tag = await register(ifWantsToBe, upgrade, tagName);
 function introduceToPreemptive(newTarget) {
-    document.querySelector('be-preemptive').newTarget = newTarget;
+    tag.newTarget = newTarget;
 }
 const test = 'link[be-preemptive],link[data-be-preemptive]';
 const headObserver = new MutationObserver((mutationList, observer) => {

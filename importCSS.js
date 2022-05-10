@@ -13,10 +13,15 @@ export async function importCSS(url, noFallback = false) {
         return await doImport(url);
     }
     catch (e) {
+        const firefox = e.message === 'doImport is not a function';
         if (noFallback) {
-            if (e.message === 'doImport is not a function') { //safari?
+            if (firefox) { //safari?
                 return 'SyntaxError';
             }
+            return '404';
+        }
+        if (!firefox) {
+            console.error(e);
             return '404';
         }
         const link = document.createElement('link');
