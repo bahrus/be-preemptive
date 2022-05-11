@@ -44,6 +44,10 @@ But remember, the moment anyone calls the api above, the download will begin reg
 
 ## Support for media queries [TODO]
 
+## Support for integrity [TODO]
+
+[Not yet supported, apparently](https://github.com/tc39/proposal-import-assertions/issues/113)
+
 ## Resource Types supported
 
 1.  CSS
