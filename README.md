@@ -20,7 +20,9 @@ const linkOrStylesheet = await self['package-name/theme.css'].beDecorated.preemp
 
 In the case of Chromium-based browsers, you will be provided a Stylesheet, which can be adopted as needed.  If not, you will probably want to append the returned link into your ShadowDOM root.
 
-The value of rel can also be preload, which is really useful for non-lazy loaded web components. Or anything you want, really.
+The value of rel can also be preload, which is really useful for non-lazy loaded web components.  And because pre-emptive actually downloads the file, the browser won't complain about having a preload tag go unfilled.
+
+rel can be anything, really.
 
 ## Second use case (medium term, at most, hopefully?) -- passionately, but not aggressively, get needed resources ahead of time, without being chastised.
 
