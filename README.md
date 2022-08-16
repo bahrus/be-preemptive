@@ -1,5 +1,11 @@
 # be-preemptive
 
+<a href="https://nodei.co/npm/be-preemptive/"><img src="https://nodei.co/npm/be-preemptive.png"></a>
+
+[![How big is this package in your project?](https://img.shields.io/bundlephobia/minzip/be-preemptive?style=for-the-badge)](https://bundlephobia.com/result?p=be-preemptive)
+
+<img src="http://img.badgesize.io/https://cdn.jsdelivr.net/npm/be-preemptive?compression=gzip">
+
 *be-preemptive* loads dependent resources eagerly, but not too eagerly.
 
 ```html
@@ -30,7 +36,7 @@ Beyond this short lived usage, be-preemptive will also preemptively perform a cs
 
 However, calling the api above will start the download regardless.
 
-This is meant for use cases where a web component lazy loads.  Having css kept separate allows for multiple components to share the same css, and also web components can enable having the web component consumer design their own css without incurring any penalty from the default css if the developer chooses to just use the provided css with no customizations.  A third benefit of maintaining separate css files is better fine-grained caching. Finally, tooling may be better when editing css separately (though tooling could also merge the files, so that is a rather weak consideration).
+This is meant for use cases where a web component lazy loads.  Having css kept separate allows for multiple components to share the same css, and also web components can enable having the web component consumer design their own css without incurring any penalty from the provided (bundled) default css.  A third benefit of maintaining separate css files is better fine-grained caching. Finally, tooling may be better when editing css separately (though tooling could also merge the files, so that is a rather weak consideration).
 
 Having the css pre download ahead of time in this scenario is quite helpful, especially if streaming is used to [stream in the HTML needed for the web component](https://www.youtube.com/watch?v=3sMflOp5kiQ), w3c willing.  This would allow the browser to render the web component progressively without suffering from FOUC.
 
