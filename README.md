@@ -6,6 +6,8 @@
 
 <img src="http://img.badgesize.io/https://cdn.jsdelivr.net/npm/be-preemptive?compression=gzip">
 
+[TODO] -- Firefox broken
+
 *be-preemptive* loads dependent resources eagerly, but not too eagerly.
 
 ```html
