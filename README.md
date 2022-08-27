@@ -20,7 +20,8 @@ Browser vendors and CDN's are taking their sweet time in providing support for C
 
 
 ```JavaScript
-await customElements.whenDefined('be-preemptive');
+//this is a bit of a simplification, we are assuming the preemptive decorator has already attached to the link element.
+//see be-loaded for more precise logic for how to do this.
 const linkOrStylesheet = await self['package-name/theme.css'].beDecorated.preemptive.linkOrStylesheetPromise();
 ```
 
@@ -40,7 +41,7 @@ However, calling the api above will start the download regardless.
 
 This is meant for use cases where a web component lazy loads.  Having css kept separate allows for multiple components to share the same css, and also web components can enable having the web component consumer design their own css without incurring any penalty from the provided (bundled) default css.  A third benefit of maintaining separate css files is better fine-grained caching. Finally, tooling may be better when editing css separately (though tooling could also merge the files, so that is a rather weak consideration).
 
-Having the css pre download ahead of time in this scenario is quite helpful, especially if streaming is used to [stream in the HTML needed for the web component](https://www.youtube.com/watch?v=3sMflOp5kiQ), w3c willing.  This would allow the browser to render the web component progressively without suffering from FOUC.
+Having the css pre download ahead of time in this scenario is quite helpful, especially if streaming is used to [stream in the HTML needed for the web component](https://www.youtube.com/watch?v=3sMflOp5kiQ), w3c willing.  (If using (declarative?) ShadowDOM for the entire component, streaming support may be far, far into the future).  This would allow the browser to render the web component progressively without suffering from FOUC.
 
 The browser probably has a good reason for complaining about abusing link rel=preload, so this provides a way to achieve that goal, hopefully in a responsible way.
 

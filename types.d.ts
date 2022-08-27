@@ -1,11 +1,15 @@
-import {BeDecoratedProps} from 'be-decorated/types';
+import {BeDecoratedProps, MinimalProxy} from 'be-decorated/types';
 
-export interface BePreemptiveVirtualProps{
+
+export interface BePreemptiveEndUserProps {
+    assertType: 'css' | 'json';
+}
+export interface BePreemptiveVirtualProps extends MinimalProxy, BePreemptiveEndUserProps{
     linkOrStylesheetPromise: Promise<HTMLLinkElement | StylesheetImport>;
     resource: HTMLLinkElement | StylesheetImport | undefined;
     domLoaded: boolean;
-    invoked: boolean;
-    assertType: 'css' | 'json';
+    //invoked: boolean;
+    
 }
 
 export interface BePreemptiveProps extends BePreemptiveVirtualProps{

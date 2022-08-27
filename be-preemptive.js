@@ -1,6 +1,6 @@
 import { define } from 'be-decorated/be-decorated.js';
 import { register } from "be-hive/register.js";
-export class BePreemptive {
+export class BePreemptive extends EventTarget {
     intro(proxy, target, beDecor) {
         if (target.rel !== 'lazy')
             return;
@@ -25,9 +25,11 @@ export class BePreemptive {
                             if (typeof resource === 'object') {
                                 proxy.resource = resource;
                                 resolve(resource);
+                                proxy.resolved = true;
                             }
                             else {
                                 reject(resource);
+                                proxy.rejected = true;
                             }
                         });
                     });
@@ -39,7 +41,7 @@ export class BePreemptive {
         requestIdleCallback(() => {
             if (linkOrStylesheetPromise !== undefined) {
                 linkOrStylesheetPromise.then(resource => {
-                    proxy.invoked = true;
+                    proxy.resolved = true;
                 });
             }
         });
@@ -55,7 +57,7 @@ define({
             upgrade,
             ifWantsToBe,
             forceVisible: ['link'],
-            virtualProps: ['linkOrStylesheetPromise', 'resource', 'domLoaded', 'invoked', 'assertType'],
+            virtualProps: ['linkOrStylesheetPromise', 'resource', 'domLoaded', 'assertType'],
             intro: 'intro',
             primaryProp: 'assertType',
             proxyPropDefaults: {
@@ -77,7 +79,7 @@ define({
 });
 const tag = await register(ifWantsToBe, upgrade, tagName);
 function introduceToPreemptive(newTarget) {
-    tag.newTarget = newTarget;
+    tag.newTargets = [...tag.newTargets, newTarget];
 }
 const test = 'link[be-preemptive],link[data-be-preemptive]';
 const headObserver = new MutationObserver((mutationList, observer) => {

@@ -3,7 +3,7 @@ import {register} from "be-hive/register.js";
 import {BePreemptiveActions, BePreemptiveProps, BePreemptiveVirtualProps, StylesheetImport} from './types';
 
 
-export class BePreemptive implements BePreemptiveActions{
+export class BePreemptive extends EventTarget implements BePreemptiveActions{
 
     intro(proxy: HTMLLinkElement & BePreemptiveVirtualProps, target: HTMLLinkElement, beDecor: BeDecoratedProps){
         if(target.rel !== 'lazy') return;
@@ -29,8 +29,10 @@ export class BePreemptive implements BePreemptiveActions{
                             if(typeof resource === 'object'){
                                 proxy.resource = resource;
                                 resolve(resource);
+                                proxy.resolved = true;
                             }else{
                                 reject(resource);
+                                proxy.rejected = true;
                             }
                             
                         });
@@ -44,7 +46,7 @@ export class BePreemptive implements BePreemptiveActions{
         requestIdleCallback(() => {
             if(linkOrStylesheetPromise !== undefined){
                 linkOrStylesheetPromise.then(resource => {
-                    proxy.invoked = true;
+                    proxy.resolved = true;
                 });
             }
         });
@@ -68,7 +70,7 @@ define<BePreemptiveProps & BeDecoratedProps<BePreemptiveProps, BePreemptiveActio
             upgrade,
             ifWantsToBe,
             forceVisible: ['link'],
-            virtualProps: ['linkOrStylesheetPromise', 'resource', 'domLoaded', 'invoked', 'assertType'],
+            virtualProps: ['linkOrStylesheetPromise', 'resource', 'domLoaded', 'assertType'],
             intro: 'intro',
             primaryProp: 'assertType',
             proxyPropDefaults: {
@@ -92,7 +94,7 @@ define<BePreemptiveProps & BeDecoratedProps<BePreemptiveProps, BePreemptiveActio
 const tag = await register(ifWantsToBe, upgrade, tagName);
 
 function introduceToPreemptive(newTarget: HTMLLinkElement){
-    (tag as any as BeDecoratedProps).newTarget = newTarget;
+    (tag as any as BeDecoratedProps).newTargets = [...(tag as any as BeDecoratedProps).newTargets, newTarget];
 
 }
 const test = 'link[be-preemptive],link[data-be-preemptive]';
