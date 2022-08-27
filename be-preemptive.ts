@@ -94,7 +94,7 @@ define<BePreemptiveProps & BeDecoratedProps<BePreemptiveProps, BePreemptiveActio
 register(ifWantsToBe, upgrade, tagName);
 
 const head = document.head;
-import('be-vigilant/be-vigilant.js');
-if(!(<any>head).beDecorated?.vigilant){
-    head.setAttribute('be-vigilant', JSON.stringify({"forBs": true}));
-}
+const {attachBehiviors} = await import('be-vigilant/attachBehiviors.js');
+attachBehiviors(document.head, {
+    childList: true
+});

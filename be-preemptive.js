@@ -79,7 +79,7 @@ define({
 });
 register(ifWantsToBe, upgrade, tagName);
 const head = document.head;
-import('be-vigilant/be-vigilant.js');
-if (!head.beDecorated?.vigilant) {
-    head.setAttribute('be-vigilant', JSON.stringify({ "forBs": true }));
-}
+const { attachBehiviors } = await import('be-vigilant/attachBehiviors.js');
+attachBehiviors(document.head, {
+    childList: true
+});
