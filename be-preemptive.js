@@ -77,24 +77,9 @@ define({
         controller: BePreemptive,
     }
 });
-const tag = await register(ifWantsToBe, upgrade, tagName);
-function introduceToPreemptive(newTarget) {
-    tag.newTargets = [...tag.newTargets, newTarget];
+register(ifWantsToBe, upgrade, tagName);
+const head = document.head;
+import('be-vigilant/be-vigilant.js');
+if (!head.beDecorated?.vigilant) {
+    head.setAttribute('be-vigilant', JSON.stringify({ "forBs": true }));
 }
-const test = 'link[be-preemptive],link[data-be-preemptive]';
-const headObserver = new MutationObserver((mutationList, observer) => {
-    for (const mutation of mutationList) {
-        const addedNodes = Array.from(mutation.addedNodes);
-        for (const addedNode of addedNodes) {
-            if (addedNode instanceof HTMLLinkElement) {
-                if (addedNode.matches(test)) {
-                    introduceToPreemptive(addedNode);
-                }
-            }
-        }
-    }
-});
-document.head.querySelectorAll(test).forEach(link => {
-    introduceToPreemptive(link);
-});
-headObserver.observe(document.head, { childList: true });

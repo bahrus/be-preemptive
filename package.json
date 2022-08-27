@@ -30,7 +30,8 @@
   },
   "dependencies": {
     "be-decorated": "0.0.146",
-    "be-hive": "0.0.57"
+    "be-hive": "0.0.57",
+    "be-vigilant": "0.0.14"
   },
   "devDependencies": {
     "may-it-serve": "0.0.2",

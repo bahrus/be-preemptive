@@ -91,26 +91,10 @@ define<BePreemptiveProps & BeDecoratedProps<BePreemptiveProps, BePreemptiveActio
     }
 });
 
-const tag = await register(ifWantsToBe, upgrade, tagName);
+register(ifWantsToBe, upgrade, tagName);
 
-function introduceToPreemptive(newTarget: HTMLLinkElement){
-    (tag as any as BeDecoratedProps).newTargets = [...(tag as any as BeDecoratedProps).newTargets, newTarget];
-
+const head = document.head;
+import('be-vigilant/be-vigilant.js');
+if(!(<any>head).beDecorated?.vigilant){
+    head.setAttribute('be-vigilant', JSON.stringify({"forBs": true}));
 }
-const test = 'link[be-preemptive],link[data-be-preemptive]';
-const headObserver = new MutationObserver((mutationList: MutationRecord[], observer: MutationObserver) => {
-    for (const mutation of mutationList) {
-        const addedNodes = Array.from(mutation.addedNodes);
-        for (const addedNode of addedNodes) {
-            if (addedNode instanceof HTMLLinkElement) {
-                if (addedNode.matches(test)) {
-                    introduceToPreemptive(addedNode);
-                }
-            }
-        }
-    }
-});
-document.head.querySelectorAll(test).forEach(link => {
-    introduceToPreemptive(link as HTMLLinkElement);
-});
-headObserver.observe(document.head, {childList: true});
