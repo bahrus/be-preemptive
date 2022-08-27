@@ -20,6 +20,6 @@ export interface BePreemptiveActions{
 
 export interface StylesheetImport{
     default: StyleSheet;
-
-    
 }
+
+export type LinkOrStylesheet = HTMLLinkElement | StylesheetImport;
