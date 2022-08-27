@@ -73,7 +73,8 @@ define<BePreemptiveProps & BeDecoratedProps<BePreemptiveProps, BePreemptiveActio
             primaryProp: 'assertType',
             proxyPropDefaults: {
                 assertType: 'css',
-            }
+            },
+            emitEvents: ['linkOrStylesheetPromise']
         },
         actions:{
             onDOMLoaded: {

@@ -60,7 +60,8 @@ define({
             primaryProp: 'assertType',
             proxyPropDefaults: {
                 assertType: 'css',
-            }
+            },
+            emitEvents: ['linkOrStylesheetPromise']
         },
         actions: {
             onDOMLoaded: {
