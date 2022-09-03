@@ -8,18 +8,20 @@ export interface BePreemptiveVirtualProps extends MinimalProxy, BePreemptiveEndU
     linkOrStylesheetPromise: Promise<HTMLLinkElement | StylesheetImport>;
     resource: HTMLLinkElement | StylesheetImport | undefined;
     domLoaded: boolean;
-    //invoked: boolean;
-    
 }
 
-export interface BePreemptiveProps extends BePreemptiveVirtualProps{
-    proxy: HTMLLinkElement & BePreemptiveVirtualProps;
+export type Proxy = HTMLLinkElement & BePreemptiveVirtualProps;
+
+export interface ProxyProps extends BePreemptiveVirtualProps{
+    proxy: Proxy;
 }
+
+export type PP = ProxyProps;
 
 export interface BePreemptiveActions{
-    intro(proxy: HTMLLinkElement & BePreemptiveVirtualProps, target: HTMLLinkElement, beDecor: BeDecoratedProps): void;
-    onDOMLoaded(self: this): void;
-    onAssertType(self: this): void;
+    intro(pp: Proxy, target: HTMLLinkElement, beDecor: BeDecoratedProps): void;
+    onDOMLoaded(pp: PP): void;
+    onAssertType(pp: PP): void;
 }
 
 export interface StylesheetImport{

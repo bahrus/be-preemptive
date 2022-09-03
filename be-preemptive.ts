@@ -1,11 +1,11 @@
 import {define, BeDecoratedProps} from 'be-decorated/be-decorated.js';
 import {register} from "be-hive/register.js";
-import {BePreemptiveActions, BePreemptiveProps, BePreemptiveVirtualProps, StylesheetImport} from './types';
+import {BePreemptiveActions, Proxy, PP, BePreemptiveVirtualProps, StylesheetImport} from './types';
 
 
 export class BePreemptive extends EventTarget implements BePreemptiveActions{
 
-    intro(proxy: HTMLLinkElement & BePreemptiveVirtualProps, target: HTMLLinkElement, beDecor: BeDecoratedProps){
+    intro(proxy: Proxy, target: HTMLLinkElement, beDecor: BeDecoratedProps){
         if(target.rel !== 'lazy') return;
         if(document.readyState === 'loading'){
             document.addEventListener('DOMContentLoaded', e => {
@@ -16,7 +16,7 @@ export class BePreemptive extends EventTarget implements BePreemptiveActions{
         proxy.domLoaded = true;
     }
 
-    onAssertType({proxy, assertType}: this){
+    onAssertType({proxy, assertType}: PP){
         switch(assertType){
             case 'css':
                 proxy.linkOrStylesheetPromise = new Promise<HTMLLinkElement | StylesheetImport>((resolve, reject) => {
@@ -42,7 +42,7 @@ export class BePreemptive extends EventTarget implements BePreemptiveActions{
         }
     }
 
-    onDOMLoaded({proxy, linkOrStylesheetPromise}: this){
+    onDOMLoaded({proxy, linkOrStylesheetPromise}: PP){
         requestIdleCallback(() => {
             if(linkOrStylesheetPromise !== undefined){
                 linkOrStylesheetPromise.then(resource => {
@@ -55,15 +55,13 @@ export class BePreemptive extends EventTarget implements BePreemptiveActions{
 
 }
 
-export interface BePreemptive extends BePreemptiveProps{}
-
 const tagName = 'be-preemptive';
 
 const ifWantsToBe = 'preemptive';
 
 const upgrade = 'link';
 
-define<BePreemptiveProps & BeDecoratedProps<BePreemptiveProps, BePreemptiveActions>, BePreemptiveActions>({
+define<BePreemptiveVirtualProps & BeDecoratedProps<BePreemptiveVirtualProps, BePreemptiveActions>, BePreemptiveActions>({
     config:{
         tagName,
         propDefaults:{
