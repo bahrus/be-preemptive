@@ -1,9 +1,9 @@
 import {define, BeDecoratedProps} from 'be-decorated/be-decorated.js';
 import {register} from "be-hive/register.js";
-import {BePreemptiveActions, Proxy, PP, BePreemptiveVirtualProps, StylesheetImport} from './types';
+import {Actions, Proxy, PP, VirtualProps, StylesheetImport} from './types';
 
 
-export class BePreemptive extends EventTarget implements BePreemptiveActions{
+export class BePreemptive extends EventTarget implements Actions{
 
     intro(proxy: Proxy, target: HTMLLinkElement, beDecor: BeDecoratedProps){
         if(target.rel !== 'lazy') return;
@@ -61,7 +61,7 @@ const ifWantsToBe = 'preemptive';
 
 const upgrade = 'link';
 
-define<BePreemptiveVirtualProps & BeDecoratedProps<BePreemptiveVirtualProps, BePreemptiveActions>, BePreemptiveActions>({
+define<VirtualProps & BeDecoratedProps<VirtualProps, Actions>, Actions>({
     config:{
         tagName,
         propDefaults:{
