@@ -49,7 +49,7 @@ This functionality works well in combination with [be-loaded](https://github.com
 
 ## Third use case
 
-Lazy loading web components can ewly on link type=modulepreload to be more quick to load when needed.  But for unbundled components, this only downloads the top dependency.  But with pre-emptive, we can preload much more, while not lowering lighthouse scores.  
+Lazy loading web components can rely on link type=modulepreload to be more quick to load when needed.  But for unbundled components, this only downloads the top dependency.  But with pre-emptive, we can preload much more, while not lowering lighthouse scores.  
 
 ## Specify not doing anything preemptively based on the user agent's [network connectivity](https://wicg.github.io/netinfo/#connection-attribute) [TODO]
 
