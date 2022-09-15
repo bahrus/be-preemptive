@@ -8,8 +8,6 @@
 
 [![Playwright Tests](https://github.com/bahrus/be-preemptive/actions/workflows/CI.yml/badge.svg?branch=baseline)](https://github.com/bahrus/be-preemptive/actions/workflows/CI.yml)
 
-[TODO] -- Firefox broken
-
 *be-preemptive* loads dependent resources eagerly, but not too eagerly.
 
 ```html
