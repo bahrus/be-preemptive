@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script type='importmap'>
+        {
+            "imports": {
+                "be-decorated/": "../node_modules/be-decorated/",
+                "be-hive/": "../node_modules/be-hive/",
+                "be-vigilant/": "../node_modules/be-vigilant/",
+                "xtal-element/": "../node_modules/xtal-element/",
+                "trans-render/": "../node_modules/trans-render/"
+            }
+        }
+    </script>
+    <script type=module>
+        import '../be-preemptive.js';
+    </script>
+    
+</head>
+<body>
+    I am here
+    <link rel='lazy' be-preemptive as='script' href='./file1.css'>
+    <link rel='lazy' be-preemptive='esm' as='script' href=https://esm.run/xtal-editor>
+</body>
+</html>
