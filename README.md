@@ -47,6 +47,10 @@ The browser probably has a good reason for complaining about abusing link rel=pr
 
 This functionality works well in combination with [be-loaded](https://github.com/bahrus/be-loaded) and [be-lazy](https://github.com/bahrus/be-lazy).
 
+## Third use case
+
+Lazy loading web components can ewly on link type=modulepreload to be more quick to load when needed.  But for unbundled components, this only downloads the top dependency.  But with pre-emptive, we can preload much more, while not lowering lighthouse scores.  
+
 ## Specify not doing anything preemptively based on the user agent's [network connectivity](https://wicg.github.io/netinfo/#connection-attribute) [TODO]
 
 But remember, the moment anyone calls the api above, the download will begin regardless of any hesitation parameters specified.

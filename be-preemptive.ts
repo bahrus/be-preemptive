@@ -39,6 +39,9 @@ export class BePreemptive extends EventTarget implements Actions{
                     });
                 });
                 break;
+            case 'esm':
+                import(proxy.href);
+                break;
         }
     }
 

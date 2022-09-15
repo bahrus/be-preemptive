@@ -2,7 +2,7 @@ import {BeDecoratedProps, MinimalProxy} from 'be-decorated/types';
 
 
 export interface EndUserProps {
-    assertType: 'css' | 'json';
+    assertType: 'css' | 'json' | 'esm';
 }
 export interface VirtualProps extends MinimalProxy, EndUserProps{
     linkOrStylesheetPromise: Promise<HTMLLinkElement | StylesheetImport>;

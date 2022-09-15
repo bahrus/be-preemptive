@@ -35,6 +35,9 @@ export class BePreemptive extends EventTarget {
                     });
                 });
                 break;
+            case 'esm':
+                import(proxy.href);
+                break;
         }
     }
     onDOMLoaded({ proxy, linkOrStylesheetPromise }) {
