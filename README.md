@@ -1,5 +1,8 @@
 # be-preemptive
 
+
+*be-preemptive* loads dependent resources eagerly, but not too eagerly.
+
 <a href="https://nodei.co/npm/be-preemptive/"><img src="https://nodei.co/npm/be-preemptive.png"></a>
 
 [![How big is this package in your project?](https://img.shields.io/bundlephobia/minzip/be-preemptive?style=for-the-badge)](https://bundlephobia.com/result?p=be-preemptive)
@@ -8,7 +11,7 @@
 
 [![Playwright Tests](https://github.com/bahrus/be-preemptive/actions/workflows/CI.yml/badge.svg?branch=baseline)](https://github.com/bahrus/be-preemptive/actions/workflows/CI.yml)
 
-*be-preemptive* loads dependent resources eagerly, but not too eagerly.
+
 
 ```html
 <link rel=lazy id=package-name/theme.css as=script crossorigin=anonymous integrity=... fetchpriority=low be-preemptive=css href=https://some-cdn.com/package-name@1.2.3>
@@ -41,7 +44,7 @@ However, calling the api above will start the download regardless.
 
 This is meant for use cases where a web component lazy loads.  Having css kept separate allows for multiple components to share the same css, and also web components can enable having the web component consumer design their own css without incurring any penalty from the provided (bundled) default css.  A third benefit of maintaining separate css files is better fine-grained caching. Finally, tooling may be better when editing css separately (though tooling could also merge the files, so that is a rather weak consideration).
 
-Having the css pre download ahead of time in this scenario is quite helpful, especially if streaming is used to [stream in the HTML needed for the web component](https://www.youtube.com/watch?v=3sMflOp5kiQ), w3c willing.  (If using (declarative?) ShadowDOM for the entire component, streaming support may be far, far into the future).  This would allow the browser to render the web component progressively without suffering from FOUC.
+Having the css pre download ahead of time in this scenario is quite helpful, especially if streaming is used to [stream in the HTML needed for the web component](https://www.youtube.com/watch?v=3sMflOp5kiQ), w3c willing.  (If using (declarative?) ShadowDOM for the entire component, streaming support may be far, far into the future -- [or maybe not, wow!](https://twitter.com/rniwa_dev/status/1578525765682880512)).  This would allow the browser to render the web component progressively without suffering from FOUC.
 
 The browser probably has a good reason for complaining about abusing link rel=preload, so this provides a way to achieve that goal, hopefully in a responsible way.
 
