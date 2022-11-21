@@ -3,12 +3,9 @@
 
 *be-preemptive* loads dependent resources eagerly, but not too eagerly.
 
-<a href="https://nodei.co/npm/be-preemptive/"><img src="https://nodei.co/npm/be-preemptive.png"></a>
-
+[![NPM version](https://badge.fury.io/js/be-preemptive.png)](http://badge.fury.io/js/be-preemptive)
 [![How big is this package in your project?](https://img.shields.io/bundlephobia/minzip/be-preemptive?style=for-the-badge)](https://bundlephobia.com/result?p=be-preemptive)
-
 <img src="http://img.badgesize.io/https://cdn.jsdelivr.net/npm/be-preemptive?compression=gzip">
-
 [![Playwright Tests](https://github.com/bahrus/be-preemptive/actions/workflows/CI.yml/badge.svg?branch=baseline)](https://github.com/bahrus/be-preemptive/actions/workflows/CI.yml)
 
 
